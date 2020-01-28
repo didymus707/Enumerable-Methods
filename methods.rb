@@ -1,3 +1,8 @@
+# rubocop:disable all"
+...
+# rubocop:enable all
+
+
 module Enumerable
   def my_each
 	  for i in (0..self.length - 1)
@@ -103,6 +108,6 @@ module Enumerable
 
 end
 
-  def multiply_els(arr)
-    return arr.my_inject { |product, n| product * n }
+def multiply_els(arr)
+	return arr.my_inject { |product, n| product * n }
 end
