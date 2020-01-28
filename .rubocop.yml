@@ -1,3 +1,5 @@
+# rubocop:disable all
+[...]
 AllCops:
   Exclude:
     - "README.md"
