@@ -1,9 +1,9 @@
 AllCops:
-  # Exclude:
+  Exclude:
     - "README.md"
     - "Guardfile"
     - "Rakefile"
-    - "Methods.rb"
+    # - "Methods.rb"
 
   DisplayCopNames: true
 
@@ -42,5 +42,5 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
   rubocop:disable all
-  rubocop:enable all
+  # rubocop:enable all
   
