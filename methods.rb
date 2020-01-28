@@ -106,3 +106,7 @@ end
   def multiply_els(arr)
     return arr.my_inject { |product, n| product * n }
 end
+
+# rubocop:disable all
+[...]
+# rubocop:enable all
