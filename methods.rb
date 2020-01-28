@@ -12,15 +12,15 @@ module Enumerable
 	end
 
   def my_select
-		arr = []
-		self.my_each do |x|
-			arr << x if yield(x)
+	  arr = []
+		my_each do |x|
+		  arr << x if yield(x)
 		end
 		return arr
 	end
 
   def my_all?
-		result = true
+	  result = true
 		if block_given?
 			self.my_each do |x|
 				result = false if !yield(x)
