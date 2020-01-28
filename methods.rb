@@ -79,28 +79,36 @@ module Enumerable
         return count
     end
 
-    def my_map
+    def my_map(&pro)
         arr = []
-        self.my_each { |x| arr << yield(x)}
+        self.my_each do |x|
+            if pro.nil?
+                arr << pro.call(x)
+              else
+                arr << yield(x)
+              end
+            end
         return arr
     end
 
     def my_inject(*args)
-        add_up = 0
-        if block_given? 
-            my_each do |ele|
-                yield(add_up, ele)
-            end
+        init = args.length > 0
+        acc = init ? args[0] : self[0]
+      
+        self.drop(init ? 0 : 1).my_each do |item|
+          acc = yield(acc, item)
         end
-        return add_up
-    end
-    
-    def multiply_els(arr)
-        result = arr.my_inject { |product, n| product * n }
-        return result
+        return acc
     end
 
 end
 
+def multiply_els(arr)
+    return arr.my_inject { |product, n| product * n }
+end
 
-p [3, 6, 10].my_inject {|sum, number| sum * number}
+test_proc = proc { |n| n * 7 }
+
+
+
+puts 'array.my_map(&test_proc) output: ' + [1,2,3,4,5].my_map(&test_proc).to_s
