@@ -3,7 +3,7 @@ AllCops:
     - "README.md"
     - "Guardfile"
     - "Rakefile"
-    # - "Methods.rb"
+    - "Methods.rb"
 
   DisplayCopNames: true
 
