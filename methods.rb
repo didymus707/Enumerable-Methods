@@ -1,25 +1,25 @@
 module Enumerable
-	def my_each
+  def my_each
 		for i in (0..self.length-1)
 			yield self[i]
 		end
 	end
 
-	def my_each_with_index
+  def my_each_with_index
 		for i in (0..self.length-1)
 			yield self[i], i
 		end
 	end
 
-	def my_select
+  def my_select
 		arr = []
 		self.my_each do |x|
-			arr << x if yield x
+			arr << x if yield(x)
 		end
 		return arr
 	end
 
-	def my_all?
+  def my_all?
 		result = true
 		if block_given?
 			self.my_each do |x|
@@ -33,7 +33,7 @@ module Enumerable
 		return result
 	end
 
-	def my_any?
+  def my_any?
 		result = false
 		if block_given?
 			self.my_each do |x|
@@ -47,7 +47,7 @@ module Enumerable
 		return result
 	end
 
-	def my_none?
+  def my_none?
 		result = false
 		if block_given?
 			self.my_each do |x|
@@ -61,7 +61,7 @@ module Enumerable
 			return result
 	end
 
-	def my_count(*args)
+  def my_count(*args)
 		count = 0
 		if block_given?
 			self.my_each { |x| count += 1 if yield(x) }
@@ -79,7 +79,7 @@ module Enumerable
 		return count
 	end
 
-	def my_map(&pro)
+  def my_map(&pro)
 		arr = []
 		self.my_each do |x|
 				if pro.nil?
@@ -91,7 +91,7 @@ module Enumerable
 		return arr
 	end
 
-	def my_inject(*args)
+  def my_inject(*args)
 		init = args.length > 0
 		acc = init ? args[0] : self[0]
 	
@@ -103,6 +103,6 @@ module Enumerable
 
 end
 
-def multiply_els(arr)
+  def multiply_els(arr)
     return arr.my_inject { |product, n| product * n }
 end
