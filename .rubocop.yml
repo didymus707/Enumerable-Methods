@@ -1,9 +1,9 @@
 AllCops:
   Exclude:
-    - "Methods.rb"
     - "README.md"
     - "Guardfile"
     - "Rakefile"
+    - --force-exclusion "Methods.rb"
 
   DisplayCopNames: true
 

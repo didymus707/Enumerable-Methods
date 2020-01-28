@@ -82,12 +82,12 @@ module Enumerable
   def my_map(&pro)
 		arr = []
 		self.my_each do |x|
-				if pro.nil?
-						arr << pro.call(x)
-					else
-						arr << yield(x)
-					end
-				end
+			if pro.nil?
+				arr << pro.call(x)
+			else
+				arr << yield(x)
+			end
+		end
 		return arr
 	end
 
