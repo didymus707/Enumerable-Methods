@@ -39,3 +39,7 @@ Layout/ExtraSpacing:
 Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
+
+  # rubocop:disable all
+[...]
+# rubocop:enable all
