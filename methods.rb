@@ -141,8 +141,6 @@ module Enumerable
 					elsif args.length > 0 || sym1
 						args[0]
 					end
-		# acc = check ? args[0] : self[0]
-		puts acc
 
 			if  sym 
 				arr.drop(1).my_each do |x|
@@ -170,12 +168,4 @@ end
 
 def multiply_els(arr)
 	return arr.my_inject { |product, n| product * n }
-end
-
-
-p [1,2,3,4].my_inject(2,:*)
-p (5..10).my_inject { |sum, n| sum + n }
-p (5..10).my_inject { |sum, n| sum + n }            #=> 45
-p (5..10).my_inject(1) { |product, n| product * n } #=> 151200
-
-p longest = %w{ cat sheep bear }.my_inject { |memo, word| memo.length > word.length ? memo : word }
+endc
