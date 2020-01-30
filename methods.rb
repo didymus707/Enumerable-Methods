@@ -1,33 +1,33 @@
 # rubocop:disable all"
-...
+# ...
 # rubocop:enable all
 
 module Enumerable
-	 def my_each
+	def my_each
 		return to_enum if !block_given?
 
 	  for i in (0..self.length - 1)
 		  yield(self[i])
 		end
-	 end
- 
-	 def my_each_with_index
+	end
+
+	def my_each_with_index
 		return to_enum if !block_given?
 
 	  for i in (0..self.length - 1)
 		  yield(self[i], i)
 		end
-	 end
- 
-   def my_select
+	end
+
+  def my_select
 		arr = []
 		return to_enum if !block_given?
 
 		my_each { |x| arr << x if yield(x) }
 		return arr
-	 end
- 
-   def my_all?(pattern = nil)
+	end
+
+  def my_all?(pattern = nil)
 	  result = true
 		if block_given?
 			self.my_each do |x|
@@ -41,7 +41,7 @@ module Enumerable
 			end
 		elsif pattern
 			self.my_each do |x|
-				result = false if pattern != x
+				result = false unless pattern === x
 				break if !result
 			end
 		else
@@ -51,9 +51,9 @@ module Enumerable
 			end
 		end
 		return result
-	 end
- 
-   def my_any?(pattern = nil)
+	end
+
+  def my_any?(pattern = nil)
 		result = false
 		if block_given?
 			self.my_each do |x|
@@ -67,7 +67,7 @@ module Enumerable
 			end
 		elsif pattern
 			self.my_each do |x|
-				result = true if x == pattern
+				result = true if pattern === x
 				break if result
 			end
 		else
@@ -77,25 +77,35 @@ module Enumerable
 			end
 		end
 		return result
-	 end
- 
-   def my_none?(pattern = nil)
-		result = false
+	end
+
+  def my_none?(pattern = nil)
+		result = true
 		if block_given?
-			self.my_each { |x| result = true if !yield(x) }
+			self.my_each do |x| 
+				result = false if yield(x)
+				break unless result
+			end
 		elsif pattern.class == Regexp
-			self.my_each { |x| result = true if !x.match(pattern) }
+			self.my_each do |x| 
+				result = false if x.match(pattern)
+				break unless result
+			end
 		elsif pattern
-			self.my_each { |x|result = true if x != pattern }
+			self.my_each do |x| 
+				result = false if pattern === x
+				break unless result
+			end
 		else
 			for i in self
-				result = true if !i
+				result = false if i
+				break unless result
 			end
 		end
 			return result
-	 end
- 
-   def my_count(*args)
+	end
+
+  def my_count(*args)
 		count = 0
 		if block_given?
 			self.my_each { |x| count += 1 if yield(x) }
@@ -111,9 +121,9 @@ module Enumerable
 			end
 		end
 		return count
-	 end
- 
-   def my_map(&my_proc)
+	end
+
+  def my_map(&my_proc)
 		arr = []
 		return to_enum unless block_given?
 
@@ -123,9 +133,9 @@ module Enumerable
 			self.my_each { |x| arr << my_proc.call(x)}
 		end
 		return arr
-	 end
- 
-   def my_inject(*args)
+	end
+
+  def my_inject(*args)
 		check = args.length > 0
 		arr = if self.is_a? Array
 						self
@@ -162,10 +172,19 @@ module Enumerable
 				arr.drop(0).my_each { |x| acc = yield(acc, x) }
 			end
 			return acc
-	 end
+	end
 
 end
 
 def multiply_els(arr)
 	return arr.my_inject { |product, n| product * n }
 end
+
+p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
+p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
+p %w{ant bear cat}.my_none?(/d/)                        #=> true
+p [1, 3.14, 42].my_none?(Float)                         #=> false
+p [].my_none?                                           #=> true
+p [nil].my_none?                                        #=> true
+p [nil, false].my_none?                                 #=> true
+p [nil, false, true].my_none?                           #=> false
