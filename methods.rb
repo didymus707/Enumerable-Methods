@@ -4,7 +4,8 @@ module Enumerable
 
 	  for i in (0..self.length - 1)
 		  yield(self[i])
-		end
+    end
+    self
 	end
 
 	def my_each_with_index
@@ -12,7 +13,8 @@ module Enumerable
 
 	  for i in (0..self.length - 1)
 		  yield(self[i], i)
-		end
+    end
+    self
 	end
 
   def my_select
@@ -20,7 +22,7 @@ module Enumerable
 		return to_enum if !block_given?
 
 		my_each { |x| arr << x if yield(x) }
-		return arr
+		arr
 	end
 
   def my_all?(pattern = nil)
@@ -120,24 +122,22 @@ module Enumerable
 	end
 
   def my_map(&my_proc)
-		arr = []
+    arr = []
+    (self.is_a? Array) ? ary = self : ary = self.to_a
+
 		return to_enum unless block_given?
 
 		if !my_proc
-			self.my_each { |x| arr << yield(x) }
+			ary.my_each { |x| arr << yield(x) }
 		else
-			self.my_each { |x| arr << my_proc.call(x)}
+			ary.my_each { |x| arr << my_proc.call(x)}
 		end
 		return arr
 	end
 
   def my_inject(*args)
 		check = args.length > 0
-		arr = if self.is_a? Array
-						self
-					elsif self.is_a? Range
-						self.to_a
-					end
+		(self.is_a? Array) ? arr = self : arr = self.to_a
 
 		sym = args[0].is_a? Symbol
 		sym1 = args[1].is_a? Symbol
@@ -175,4 +175,3 @@ end
 def multiply_els(arr)
 	return arr.my_inject { |product, n| product * n }
 end
-...........
