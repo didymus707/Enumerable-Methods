@@ -157,9 +157,9 @@ RSpec.describe Enumerable do
     end
 
     it 'returns longest word' do
-      %w{ cat sheep bear }.my_inject do |memo, word|
+      expect(%w{ cat sheep bear }.my_inject do |memo, word|
         memo.length > word.length ? memo : word
-     end
+     end).to eq('sheep')
     end
   end
 
