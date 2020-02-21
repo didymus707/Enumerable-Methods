@@ -1,15 +1,15 @@
 require './methods'
 
 RSpec.describe Enumerable do
-  let (:a) { [1, 2, 3, 4] }
-  let (:b) { %w[ant bear cat] }
-  let (:c) { [nil, true, 99] }
-  let (:d) { [] }
-  let (:e) { [1, 2, 4, 2] }
-  let (:f) { (1..4) }
+  let(:a) { [1, 2, 3, 4] }
+  let(:b) { %w[ant bear cat] }
+  let(:c) { [nil, true, 99] }
+  let(:d) { [] }
+  let(:e) { [1, 2, 4, 2] }
+  let(:f) { (1..4) }
   describe '#my_each' do
     it 'returns its array' do
-      expect(a.my_each {|x| x} ).to eq(a)
+      expect(a.my_each { |x| x }).to eq(a)
     end
 
     it 'returns its array' do
@@ -17,13 +17,13 @@ RSpec.describe Enumerable do
     end
 
     it 'returns an enum when no block given' do
-      expect(a.my_each) === :Enumerator
+      expect(a.my_each).to eq(:Enumerator)
     end
   end
 
   describe '#my_each_with_index' do
     it 'returns its array' do
-      expect(a.my_each_with_index {|_x, y| y} ).to eq(a)
+      expect(a.my_each_with_index { |_x, y| y }).to eq(a)
     end
 
     it 'does not returns its array' do
@@ -31,21 +31,21 @@ RSpec.describe Enumerable do
     end
 
     it 'returns an enum when no block given' do
-      expect(a.my_each_with_index) === :Enumerator
+      expect(a.my_each_with_index).to eq(:Enumerator)
     end
   end
 
   describe '#my_select' do
     it 'returns an array' do
-      expect(a.my_select { |num|  num.even? }).to eq([2, 4])
+      expect(a.my_select(&:even?)).to eq([2, 4])
     end
 
     it 'does not return an array' do
-      expect(a.my_select { |num|  num.even? }).not_to eq('2, 4')
+      expect(a.my_select(&:even?)).not_to eq('2, 4')
     end
 
     it 'returns an enum when no block given' do
-      expect(a.my_select) === :Enumerator
+      expect(a.my_select).to eq(:Enumerator)
     end
   end
 
@@ -121,7 +121,7 @@ RSpec.describe Enumerable do
     end
 
     it 'returns the number of item for which condition in block is true' do
-      expect(e.my_count { |x| x%2==0 }).to eq(3)
+      expect(e.my_count(&:even?)).to eq(3)
     end
 
     it 'returns the number of given argument' do
@@ -131,15 +131,15 @@ RSpec.describe Enumerable do
 
   describe '#my_map' do
     it 'returns an enum when no block given' do
-      expect(f.my_map) === :Enumerator
+      expect(f.my_map).to eq(:Enumerator)
     end
 
     it 'returns a new array' do
-      expect(f.my_map { |i| i*i }).to eq([1, 4, 9, 16])
+      expect(f.my_map { |i| i * i }).to eq([1, 4, 9, 16])
     end
 
     it 'returns a new array' do
-      expect(f.my_map { |i| i*i }).not_to eq('[1, 4, 9, 16]')
+      expect(f.my_map { |i| i * i }).not_to eq('[1, 4, 9, 16]')
     end
   end
 
@@ -153,22 +153,20 @@ RSpec.describe Enumerable do
     end
 
     it 'returns product of all element when argument and symbol given' do
-      expect((5..10).my_inject(1, :*)).to eq(151200)
+      expect((5..10).my_inject(1, :*)).to eq(151_200)
     end
 
     it 'returns longest word' do
-      expect(%w{ cat sheep bear }.my_inject do |memo, word|
+      expect(%w[cat sheep bear].my_inject do |memo, word|
         memo.length > word.length ? memo : word
-     end).to eq('sheep')
+      end).to eq('sheep')
     end
   end
-
 end
 
 RSpec.describe '#multiply_els' do
   it 'return accumulation of arr' do
-    a = [1,2,3]
+    a = [1, 2, 3]
     expect(multiply_els(a)).to eq(6)
   end
 end
-
