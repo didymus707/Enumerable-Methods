@@ -1,3 +1,4 @@
+# rubocop:disable all
 module Enumerable
   def my_each
     return to_enum unless block_given?
@@ -172,3 +173,4 @@ end
 def multiply_els(arr)
   arr.my_inject { |product, n| product * n }
 end
+# rubocop:enable all
