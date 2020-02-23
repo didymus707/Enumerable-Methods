@@ -24,7 +24,7 @@ module Enumerable
 
     my_each { |x| arr << x if yield(x) }
     arr
-   end
+  end
 
   def my_all?(pattern = nil)
     result = true
@@ -50,7 +50,7 @@ module Enumerable
       end
     end
     result
-   end
+  end
 
   def my_any?(pattern = nil)
     result = false
@@ -76,7 +76,7 @@ module Enumerable
       end
     end
     result
-   end
+  end
 
   def my_none?(pattern = nil)
     result = true
@@ -102,7 +102,7 @@ module Enumerable
       end
     end
     result
-   end
+  end
 
   def my_count(*args)
     count = 0
@@ -118,7 +118,7 @@ module Enumerable
       end
     end
     count
-   end
+  end
 
   def my_map(&my_proc)
     arr = []
@@ -132,7 +132,7 @@ module Enumerable
       ary.my_each { |x| arr << my_proc.call(x) }
     end
     arr
-   end
+  end
 
   def my_inject(*args)
     check = !args.empty?
@@ -167,7 +167,7 @@ module Enumerable
       arr.drop(0).my_each { |x| acc = yield(acc, x) }
     end
     acc
-   end
+  end
 end
 
 def multiply_els(arr)
