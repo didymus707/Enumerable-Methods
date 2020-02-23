@@ -17,7 +17,7 @@ RSpec.describe Enumerable do
     end
 
     it 'returns an enum when no block given' do
-      expect(a.my_each).to eq(:Enumerator)
+      expect(a.my_each.is_a?(Enumerator)).to eq(true)
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe Enumerable do
     end
 
     it 'returns an enum when no block given' do
-      expect(a.my_each_with_index).to eq(:Enumerator)
+      expect(a.my_each_with_index.is_a?(Enumerator)).to eq(true)
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe Enumerable do
     end
 
     it 'returns an enum when no block given' do
-      expect(a.my_select).to eq(:Enumerator)
+      expect(a.my_select.is_a?(Enumerator)).to eq(true)
     end
   end
 
@@ -131,7 +131,7 @@ RSpec.describe Enumerable do
 
   describe '#my_map' do
     it 'returns an enum when no block given' do
-      expect(f.my_map).to eq(:Enumerator)
+      expect(f.my_map.is_a?(Enumerator)).to eq(true)
     end
 
     it 'returns a new array' do
